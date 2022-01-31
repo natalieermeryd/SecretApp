@@ -1,0 +1,24 @@
+{
+  "name": "secretapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nataliaermeryd/SecretApp.git"
+  },
+  "author": "NES",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nataliaermeryd/SecretApp/issues"
+  },
+  "homepage": "https://github.com/nataliaermeryd/SecretApp#readme",
+  "dependencies": {
+    "body-parser": "^1.19.1",
+    "ejs": "^3.1.6",
+    "express": "^4.17.2"
+  }
+}
