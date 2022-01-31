@@ -1,6 +1,14 @@
 
 body {
-  background-color: #E8ECEF;
+  background: linear-gradient(0.25turn, #ffbd96, #e66465, #9198e5);
+  text-transform: uppercase;
+}
+
+.jumbotron.centered, .jumbotron.text-center {
+  background-color: rgba(255, 255, 255, 0.493);
+  margin-top: 5%;
+  box-shadow: 4px 7px 4px rgba(65, 65, 65, 0.308);
+  border: Solid 1px rgb(255, 255, 255);
 }
 
 .centered {
@@ -14,3 +22,73 @@ body {
   color: #fff;
   background-color: #000;
 }
+
+/* TEXT PROPERTIES 
+---------------------------------*/
+
+h1 {
+  background: -webkit-linear-gradient(#e66465, #9198e5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 2px 2px 4px rgba(75, 75, 75, 0.295);
+}
+
+.fas.fa-key.fa-6x {
+  background: -webkit-linear-gradient(#e66465, #9198e5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 3px 3px 5px rgba(75, 75, 75, 0.295);
+}
+
+
+/* BUTTON PROPERTIES 
+----------------------------------*/
+/* .btn-grad {
+  background-image: linear-gradient(to right, #9198e5 0%, #e66465  51%, #ffbd96  100%);
+  margin: 10px;
+  padding: 15px 10px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;            
+  box-shadow: 0 0 5px #eee;
+  border-radius: 10px;
+  display: block;
+} */
+
+/* .btn-grad:hover {
+  background-position: right center; 
+  color: #fff;
+  text-decoration: none;
+} */
+
+.btn {
+ background-image: linear-gradient(to right, #9198e5 0%, #e66465  51%, #ffbd96  100%);
+ margin: 10px 0;
+ margin-right: 20px;
+  padding: 10px 20px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.7s;
+  background-size: 200% auto;
+  color: white;            
+  box-shadow: 0 0 5px #eee;
+  border-radius: 10px;
+  border-color: #fff;
+  width: 20%;
+}
+.btn:hover  {
+ background-position: right center; /* change the direction of the change here */
+ color: #fff;
+ background-color: #fff;
+ border-color: #fff;
+ text-decoration: none;
+}
+/* .btn-light:hover  {
+ background-position: center right; 
+ color: #fff;
+ text-decoration: none;
+} */
+
+
