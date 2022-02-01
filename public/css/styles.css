@@ -16,6 +16,9 @@ body {
     text-align: center;
 }
 
+
+/* TEXT PROPERTIES 
+---------------------------------*/
 .secret-text {
   text-align: center;
   font-size: 2rem;
@@ -23,14 +26,15 @@ body {
   background-color: #000;
 }
 
-/* TEXT PROPERTIES 
----------------------------------*/
-
 h1 {
   background: -webkit-linear-gradient(#e66465, #9198e5);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 2px 2px 4px rgba(75, 75, 75, 0.295);
+
+  -webkit-text-stroke: 0.5px rgba(255, 255, 255, 0.651); /* width and color */
+
+  font-family: sans; color: yellow;
 }
 
 .fas.fa-key.fa-6x {
@@ -43,26 +47,6 @@ h1 {
 
 /* BUTTON PROPERTIES 
 ----------------------------------*/
-/* .btn-grad {
-  background-image: linear-gradient(to right, #9198e5 0%, #e66465  51%, #ffbd96  100%);
-  margin: 10px;
-  padding: 15px 10px;
-  text-align: center;
-  text-transform: uppercase;
-  transition: 0.5s;
-  background-size: 200% auto;
-  color: white;            
-  box-shadow: 0 0 5px #eee;
-  border-radius: 10px;
-  display: block;
-} */
-
-/* .btn-grad:hover {
-  background-position: right center; 
-  color: #fff;
-  text-decoration: none;
-} */
-
 .btn {
  background-image: linear-gradient(to right, #9198e5 0%, #e66465  51%, #ffbd96  100%);
  margin: 10px 0;
@@ -79,16 +63,11 @@ h1 {
   width: 20%;
 }
 .btn:hover  {
- background-position: right center; /* change the direction of the change here */
+ background-position: right center; 
  color: #fff;
  background-color: #fff;
  border-color: #fff;
  text-decoration: none;
 }
-/* .btn-light:hover  {
- background-position: center right; 
- color: #fff;
- text-decoration: none;
-} */
 
 
