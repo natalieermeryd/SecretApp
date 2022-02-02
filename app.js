@@ -66,7 +66,7 @@ app.post('/register', function(req, res){
 //LOGIN ROUTES ----------------------
 app.post('/login', function(req, res){
     const username = req.body.username;
-    const password = req.body.password; 
+    const password = md5(req.body.password); //Lägger md5 här också för att kunna matcha den hashade lösenordet.  
 
 
     //Letar i userDB efter inmatad liknelse, om den hittar en identisk sparad ObjectID så kommer den att matcha och logga in
