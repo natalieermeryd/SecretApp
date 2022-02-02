@@ -3,7 +3,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const mongoose = require('mongoose');
-const encrypt = require('mongoose-encryption');
+//const encrypt = require('mongoose-encryption'); -Raderar dessa för att istället använda HASHING
+const md5 = require('md5'); //HASHING Password - Impossible to reverse
 
 const app = express();
 
@@ -20,8 +21,8 @@ const userSchema = new mongoose.Schema ({
     password: String
 }); //Skapar en ny userSchema i mongoDB och Sparar email & password i mongoDB 
 
-
-userSchema.plugin(encrypt, { secret: process.env.SECRET, encryptedFields: ["password"] }); 
+//UTKOMMENTERAT FÖR ATT ISTÄLLET ANVÄNDA HASHING SOM ÄR SÄKRARE KRYPTERING
+//userSchema.plugin(encrypt, { secret: process.env.SECRET, encryptedFields: ["password"] }); 
 //Kommer att kryptera(encrypt) hela databasen
 //Lägger till encryptedFields for att kategorisera ut och endast kryptera "password" -i detta fall.
 
@@ -50,7 +51,7 @@ app.get('/register', function(req, res){
 app.post('/register', function(req, res){
     const newUser = new User({
         email: req.body.username, //Hämtar Username ifrån register-sidan
-        password: req.body.password //Hämtar Password ifrån register-sidan
+        password: md5(req.body.password) //Hämtar Password ifrån register-sidan -md5 = hashing
     }); 
 
     newUser.save(function(err){
