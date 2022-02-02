@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
@@ -19,8 +20,8 @@ const userSchema = new mongoose.Schema ({
     password: String
 }); //Skapar en ny userSchema i mongoDB och Sparar email & password i mongoDB 
 
-const secret = "Thisisourlittlesecret.";
-userSchema.plugin(encrypt, { secret: secret, encryptedFields: ["password"] }); 
+
+userSchema.plugin(encrypt, { secret: process.env.SECRET, encryptedFields: ["password"] }); 
 //Kommer att kryptera(encrypt) hela databasen
 //Lägger till encryptedFields for att kategorisera ut och endast kryptera "password" -i detta fall.
 
