@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const mongoose = require('mongoose');
+const encrypt = require('mongoose-encryption');
 
 const app = express();
 
@@ -13,10 +14,15 @@ app.use(bodyParser.urlencoded({
 
 mongoose.connect('mongodb://localhost:27017/userDB', {useNewUrlParser: true}); //Skapar connection till MongoDB med namnet userDB -Se i Compass
 
-const userSchema = {
+const userSchema = new mongoose.Schema ({
     email: String,
     password: String
-}; 
+}); //Skapar en ny userSchema i mongoDB och Sparar email & password i mongoDB 
+
+const secret = "Thisisourlittlesecret.";
+userSchema.plugin(encrypt, { secret: secret, encryptedFields: ["password"] }); 
+//Kommer att kryptera(encrypt) hela databasen
+//Lägger till encryptedFields for att kategorisera ut och endast kryptera "password" -i detta fall.
 
 const User = new mongoose.model('User', userSchema); //Skapar User för userSchema
 
