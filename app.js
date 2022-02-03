@@ -17,20 +17,26 @@ const MongoClient = require('mongodb').MongoClient;
 
 const auditLog = require('audit-log');
 const app = express();
-// const https = require('https');
-// const http = require('http');
-// const fs = require("fs");
+//----SSL-----------------------
+const https = require('https');
+const http = require('http');
+const fs = require("fs");
+//---------------------------------
 
+
+//AUDIT LOGGING -----------------------
 auditLog.addTransport("mongoose", {connectionString: "mongodb://localhost/auditdb"})
+//---------------------------------------
 
 const PORT = process.env.PORT || 3000
 const uri = process.env.MONGODB;
 
 
-// const options = {
-//     key: fs.readFileSync('nattas-key.pem'),
-//     cert: fs.readFileSync('nattas-cert.pem')
-// }; 
+//SSL---------------------------------
+const options = {
+    key: fs.readFileSync('nattas-key.pem'),
+    cert: fs.readFileSync('nattas-cert.pem')
+}; //----------------------------------
 
 
 app.use('/healthcheck', require('./routes/healthcheck.routes'));
@@ -263,14 +269,16 @@ app.post('/login', function(req, res){
 
 
 
-app.listen(3000, function() {
-    console.log("Server running on port 3000 BIATCH");
-});
+// app.listen(3000, function() {
+//     console.log("Server running on port 3000 BIATCH");
+// });
 
-// http.createServer(app).listen(PORT, function(){
-//     console.log('info', `STARTED LISTENING ON PORT ${PORT} BIATCH!`);
-//   });
+
+//SSL 
+http.createServer(app).listen(PORT, function(){
+    console.log('info', `STARTED LISTENING ON PORT ${PORT} BIATCH!`);
+  });
   
-//   https.createServer(options, app).listen(443, function(){
-//     console.log('HTTPS listening on 443');
-//   });
+  https.createServer(options, app).listen(443, function(){
+    console.log('HTTPS listening on 443');
+  });
