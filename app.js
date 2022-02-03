@@ -234,9 +234,9 @@ app.post('/register', function(req, res){
 //LOGIN ROUTES ----------------------
 app.post('/login', function(req, res){
     const username = req.body.username;
-    const password = md5(req.body.password); //Lägger md5 här också för att kunna matcha den hashade lösenordet.  
+    const password = req.body.password
 
-
+    //UTRADERAT MD5 ----const password = md5(req.body.password); //Lägger md5 här också för att kunna matcha den hashade lösenordet.  
     //Letar i userDB efter inmatad liknelse, om den hittar en identisk sparad ObjectID så kommer den att matcha och logga in
     User.findOne({email: username}, function(err, foundUser){
         if (err) {
@@ -244,11 +244,16 @@ app.post('/login', function(req, res){
             console.log(err);
         } else {
             if (foundUser) {
+                bcrypt.compare(password, foundUser.password, function(err, result) {
+               // res == true
+               if (result === true) {
+                   res.render('secrets');
+                   //Ifall username och password är korrekt så skickas användaren vidare till Secrets-sidan, vilket innebär att användaren blivit autentiserade
+               }
+                });
+
                 //Ifall password matchar med username i userDB så kommer den att logga in, i annat fall blir det error
-                if (foundUser.password === password) {
-                    res.render('secrets'); 
-                    //Ifall username och password är korrekt så skickas användaren vidare till Secrets-sidan, vilket innebär att användaren blivit autentiserade
-                }
+                //UTRADERAT MD5 ---if (foundUser.password === password) {
             }
         }
     });
