@@ -5,11 +5,19 @@ const ejs = require('ejs');
 const mongoose = require('mongoose');
 //const encrypt = require('mongoose-encryption'); -Raderar dessa för att istället använda HASHING
 const md5 = require('md5'); //HASHING Password - Impossible to reverse
+// const session = require('express-session');
+// const passport = require('passport');
+// const passportLocalMongoose = require('passport-local-mongoose');
+// const GoogleStrategy = require('passport-google-oauth20').Strategy;
+// const findOrCreate = require('mongoose-findorcreate');
 
 const MongoClient = require('mongodb').MongoClient;
 
 const auditLog = require('audit-log');
 const app = express();
+// const https = require('https');
+// const http = require('http');
+// const fs = require("fs");
 
 auditLog.addTransport("mongoose", {connectionString: "mongodb://localhost/auditdb"})
 
@@ -17,8 +25,13 @@ const PORT = process.env.PORT || 3000
 const uri = process.env.MONGODB;
 
 
-app.use('/healthcheck', require('./routes/healthcheck.routes'));
+// const options = {
+//     key: fs.readFileSync('nattas-key.pem'),
+//     cert: fs.readFileSync('nattas-cert.pem')
+// }; 
 
+
+app.use('/healthcheck', require('./routes/healthcheck.routes'));
 
 app.use(express.static('public')); //use the location for our css
 app.set('view engine', 'ejs');
@@ -26,19 +39,71 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+// //session cookies
+// app.use(session({
+//     secret:"Our little secret.",
+//     resave: false,
+//     saveUninitialized: true,
+//     cookie: { secure: true }
+// }));
+
+// app.use(passport.initialize()); //starting passport encryption
+// app.use(passport.session());    //passport starting session cookies
+
+//connection to our Mono DB where we have a document for our users.
+//if user registers with Google we can only see the Google ID and submitted Secret
+//if user registers via the form, we can see username, encrypted password and secret   
 mongoose.connect('mongodb://localhost:27017/userDB', {useNewUrlParser: true}); //Skapar connection till MongoDB med namnet userDB -Se i Compass
 
 const userSchema = new mongoose.Schema ({
     email: String,
     password: String
+    //googleId: String,
+    //secret: String
 }); //Skapar en ny userSchema i mongoDB och Sparar email & password i mongoDB 
+
+// userSchema.plugin(passportLocalMongoose); // call plugin save = crypting
+// userSchema.plugin(findOrCreate);          // call plugin find = decrypting
 
 //UTKOMMENTERAT FÖR ATT ISTÄLLET ANVÄNDA HASHING SOM ÄR SÄKRARE KRYPTERING
 //userSchema.plugin(encrypt, { secret: process.env.SECRET, encryptedFields: ["password"] }); 
 //Kommer att kryptera(encrypt) hela databasen
 //Lägger till encryptedFields for att kategorisera ut och endast kryptera "password" -i detta fall.
 
+
 const User = new mongoose.model('User', userSchema); //Skapar User för userSchema
+
+
+//PASSPORT
+
+// passport.use(User.createStrategy());
+
+// // skapar cookies with user ID
+// passport.serializeUser(function(user, done){
+//     done(null, user.id)
+// });
+// // "opens" the cookie to identify user by ID
+// passport.deserializeUser(function (id, done) {
+//     User.findById(id, function(err, user){
+//         done(err, user);
+//     });
+// });
+
+// passport.use(new GoogleStrategy({
+//     clientID: process.env.CLIENT_ID,
+//     clientSecret: process.env.CLIENT_SECRET,
+//     callbackURL: "http://localhost:3000/auth/google/secrets",
+//     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
+//   },
+
+//   function(accessToken, refreshToken, profile, cb) {
+//       console.log(profile)
+
+//     User.findOrCreate({ googleId: profile.id }, function (err, user) {
+//       return cb(err, user);
+//     });
+//   }
+// ));
 
 /* 
 ### ALL ROUTES ###
@@ -46,6 +111,19 @@ const User = new mongoose.model('User', userSchema); //Skapar User för userSche
 app.get('/', function(req, res){
     res.render('home') //Skickar användare till home som standard, utgår ifrån Home
 });
+
+//PASSPORT AND GOOGLE
+//opens upp window for using google-sign in
+// app.get('/auth/google',
+//     passport.authenticate('google', { scope: ['profile'] })
+// );
+
+// app.get('/auth/google/secrets', 
+//   passport.authenticate('google', { failureRedirect: '/login' }),
+//   function(req, res) {
+//     // Successful authentication, redirect to secrets-page.
+//     res.redirect('/secrets');
+//   });
 
 
 //LOGIN ROUTE ----------------------
