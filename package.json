@@ -17,11 +17,14 @@
   },
   "homepage": "https://github.com/nataliaermeryd/SecretApp#readme",
   "dependencies": {
+    "audit-log": "^0.9.1",
+    "auditlog": "^0.1.0",
     "body-parser": "^1.19.1",
     "dotenv": "^16.0.0",
     "ejs": "^3.1.6",
     "express": "^4.17.2",
     "md5": "^2.3.0",
+    "mongoclient": "^1.0.3",
     "mongoose": "^6.1.9",
     "mongoose-encryption": "^2.1.2"
   }

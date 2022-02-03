@@ -6,7 +6,19 @@ const mongoose = require('mongoose');
 //const encrypt = require('mongoose-encryption'); -Raderar dessa för att istället använda HASHING
 const md5 = require('md5'); //HASHING Password - Impossible to reverse
 
+const MongoClient = require('mongodb').MongoClient;
+
+const auditLog = require('audit-log');
 const app = express();
+
+auditLog.addTransport("mongoose", {connectionString: "mongodb://localhost/auditdb"})
+
+const PORT = process.env.PORT || 3000
+const uri = process.env.MONGODB;
+
+
+app.use('/healthcheck', require('./routes/healthcheck.routes'));
+
 
 app.use(express.static('public')); //use the location for our css
 app.set('view engine', 'ejs');
