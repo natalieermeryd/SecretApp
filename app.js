@@ -53,7 +53,7 @@ app.use(session({
     secret:"Our little secret.",
     resave: false,
     saveUninitialized: false,
-    // cookie: { secure: true }
+    //cookie: { secure: true }
 }));
 
 app.use(passport.initialize()); //starting passport encryption
@@ -141,6 +141,11 @@ app.get('/login', function(req, res){
     res.render('login') //Skickar användaren till Login
 });
 
+//**TERMS ROUTE ----------------------
+app.get('/terms', function(req, res){
+    res.render('terms') //Skickar användaren till Terms
+});
+
 
 
 //REGISTRATION ROUTES ----------------------
@@ -173,7 +178,7 @@ app.get('/secrets', function (req, res){
 //---------------------------------------------------
 
 
-//-------------------------------------------
+//**SUBMIT SECRET ROUTE-------------------------------
 //if a user wants to access the /submit-page they need to be logged in 
 //- if not, they will be redirected to Log In
 // app.get('/submit', function (req,res) {
@@ -183,8 +188,6 @@ app.get('/secrets', function (req, res){
 //         res.redirect('/login');
 //     }
 // });
-
-//**SUBMIT SECRET ROUTE-------------------------------
 
 // app.post('/submit', function(req, res) {
 //     const submittedSecret = req.body.secret;
