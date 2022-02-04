@@ -45,6 +45,17 @@ h1 {
   text-shadow: 3px 3px 5px rgba(75, 75, 75, 0.295);
 }
 
+.register-link, .login-link{
+  color: white;
+  font-weight: 400;
+  font-size:0.8em;
+  line-height: normal;
+}
+
+.register-link:hover, .login-link:hover{
+  font-weight:bolder;
+  color:#9198e5;
+}
 
 /* BUTTON PROPERTIES 
 ----------------------------------*/
@@ -71,4 +82,67 @@ h1 {
  text-decoration: none;
 }
 
+/* COOKIE CONSENT PROPERTIES
+---------------------------------- */
+#accept-btn,
+#cancel-btn {
+  box-shadow: 0 0 5px #eee;
+  border-radius: 10px;
+  margin: 0 5px;
+}
 
+#accept-btn:hover {
+  cursor: pointer;
+  background-color: #c5df95;
+  font-weight: bolder;
+}
+
+#cancel-btn:hover {
+  cursor: pointer;
+  background-color: #e66465;
+  font-weight: bolder;
+}
+
+.fa-cookie{
+  margin-bottom: -5px;
+  background: -webkit-linear-gradient(#e66465, #9198e5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#cookie-consent{
+  width: 100%;
+  text-align:center;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.705);
+
+  opacity: 1;
+  transition: opacity .5s ease;
+}
+
+#cookie-consent.active {
+  bottom:0;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #9198e5;
+}
+
+.terms{
+  color: rgb(49, 49, 49);
+  font-weight: bolder;
+  font-style: italic;
+}
+
+.terms:hover {
+  transition: 6ms;
+}
