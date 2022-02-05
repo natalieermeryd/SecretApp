@@ -33,14 +33,14 @@ const PORT = process.env.PORT || 3000
 const uri = process.env.MONGODB;
 
 
-//SSL -hemliga nycklar -------------------------
+//SSL -private key and certifiering & Asymmetric encryption----------
 const options = {
     key: fs.readFileSync('nattas-key.pem'),
     cert: fs.readFileSync('nattas-cert.pem')
 }; //----------------------------------
 
 //Övervakar app mot attacker
-app.use('/healthcheck', require('./routes/healthcheck.routes'));
+app.use('/healthcheck', require('./routes/healthcheck.routes')); 
 
 app.use(express.static('public')); //use the location for our css
 app.set('view engine', 'ejs');
@@ -145,7 +145,6 @@ app.get('/login', function(req, res){
 app.get('/terms', function(req, res){
     res.render('terms') //Skickar användaren till Terms
 });
-
 
 
 //REGISTRATION ROUTES ----------------------
