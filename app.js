@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config(); //Håller hemligheter hemliga
 const express = require('express');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
@@ -12,6 +12,7 @@ const passport = require('passport');       //Cookies and Sessions
 const passportLocalMongoose = require('passport-local-mongoose'); //Cookies and Sessions
 // const GoogleStrategy = require('passport-google-oauth20').Strategy;
 // const findOrCreate = require('mongoose-findorcreate');
+const rateLimit = require('express-rate-limit');
 
 const MongoClient = require('mongodb').MongoClient;
 
@@ -117,8 +118,26 @@ passport.deserializeUser(function (id, done) {
 /* ----------------------------------------
 ### ALL ROUTES ###
 */ 
+
+//Lägger till en register-spärr där man endast kan logga in 10ggr/15min
+const createLimiter = rateLimit({
+	windowMs: 15 * 60 * 1000, // 15 minutes
+	max: 10, // Limit each IP to 10 requests per `window` (we have set a window to be =  15 minutes)
+	message: "Too many accounts created from this IP, please try again after 15 minutes",
+    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+}) //Lägger till en login-spärr där man endast kan logga in 10ggr/15min
+const limiter = rateLimit({
+	windowMs: 15 * 60 * 1000, // 15 minutes
+	max: 10, // Limit each IP to 10 requests per `window` (we have set a window to be =  15 minutes)
+	message: "Too many requests sent from this IP, please try again after 15 minutes",
+    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+	legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+})
+
+
 //**HOME ROUTE 
-app.get('/', function(req, res){
+app.get('/', limiter, function(req, res){
     res.render('home') //Skickar användare till home som standard, utgår ifrån Home
 });
 
@@ -137,7 +156,7 @@ app.get('/', function(req, res){
 
 
 //**LOGIN ROUTE ----------------------
-app.get('/login', function(req, res){
+app.get('/login', limiter, function(req, res){
     res.render('login') //Skickar användaren till Login
 });
 
@@ -148,7 +167,7 @@ app.get('/terms', function(req, res){
 
 
 //REGISTRATION ROUTES ----------------------
-app.get('/register', function(req, res){
+app.get('/register', limiter, function(req, res){
     res.render('register') //Skickar användaren till Register
 });
 
