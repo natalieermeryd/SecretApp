@@ -4,6 +4,11 @@ body {
   text-transform: uppercase;
 }
 
+.jumbotron {
+  background-color: #11435796;
+   height:100vh;
+ }
+
 .jumbotron.centered, .jumbotron.text-center {
   background-color: rgba(255, 255, 255, 0.493);
   margin-top: 5%;
@@ -59,7 +64,7 @@ h1 {
 
 /* BUTTON PROPERTIES 
 ----------------------------------*/
-.btn {
+.btn-dark, .btn-light {
  background-image: linear-gradient(to right, #9198e5 0%, #e66465  51%, #ffbd96  100%);
  margin: 10px 0;
  margin-right: 20px;
@@ -80,6 +85,35 @@ h1 {
  background-color: #fff;
  border-color: #fff;
  text-decoration: none;
+}
+
+.card{
+  border:none;
+}
+.btn-card {
+  background-color: white;
+  border: none;
+}
+
+.btn-grad {
+  /*background-image: linear-gradient(to right, #114357 0%, rgba(255, 192, 203, 0.87)  51%, #114357  100%);*/
+  background-image: linear-gradient(to right, #9198e5 0%, #e66465  51%, #ffbd96  100%);
+  margin: 10px;
+  padding: 15px 10px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;            
+  box-shadow: 0 0 5px #eee;
+  border-radius: 10px;
+  display: block;
+}
+
+.btn-grad:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
 }
 
 /* COOKIE CONSENT PROPERTIES
