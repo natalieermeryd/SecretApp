@@ -40,7 +40,7 @@ const options = {
     cert: fs.readFileSync('nattas-cert.pem')
 }; //----------------------------------
 
-//Övervakar app mot attacker
+//Övervakar app mot attacker /Monitoring
 app.use('/healthcheck', require('./routes/healthcheck.routes')); 
 
 app.use(express.static('public')); //use the location for our css
