@@ -187,28 +187,30 @@ app.get("/register", limiter, function(req, res){
 });
 
 //**SECRETS ROUTES ----------------------------
-app.get("/secrets", function (req, res){
-    if (req.isAuthenticated()){
-        res.render("secrets");
-    } else {
-        res.redirect("/login");
-    }
-});
+
+//-----UTRADERAD VERSION AV app.get Secrets
+// app.get("/secrets", function (req, res){
+//     if (req.isAuthenticated()){
+//         res.render("secrets");
+//     } else {
+//         res.redirect("/login");
+//     }
+// });
 
 //----ANOTHER SECRET ROUTE-------------------------
 //hittar alla secrets som blir inskickade
-// app.get('/secrets', function (req, res){
-//     //renders all submitted secrets 
-//     User.find({'secret': {$ne: null}}, function(err, foundUsers){
-//         if(err){
-//             console.log(err)
-//         } else {
-//             if(foundUsers) {
-//                 res.render('secrets', {usersWithSecrets: foundUsers});
-//             }
-//         }
-//     });
-// });
+app.get("/secrets", function (req, res){
+    //renders all submitted secrets 
+    User.find({"secret": {$ne: null}}, function(err, foundUsers){
+        if(err){
+            console.log(err)
+        } else {
+            if(foundUsers) {
+                res.render("secrets", {usersWithSecrets: foundUsers});
+            }
+        }
+    });
+});
 //---------------------------------------------------
 
 
@@ -228,27 +230,29 @@ app.get("/submit", function (req,res) {
 //secret blir inskickad
 //när user blir aut, sparas info i req.user
 //om samma user loggar in igen så lagras deras secret på deras id
-//console.log(req.user.id);
-// app.post('/submit', function(req, res) {
-//     const submittedSecret = req.body.secret;
+
+app.post("/submit", function(req, res) {
+    const submittedSecret = req.body.secret;
+
+    console.log(req.user.id);
 
     //  Once the user is authenticated and their session gets saved, 
     //  their user details are saved to req.user.
     //  console.log(req.user.id);
 
-//     User.findById(req.user.id, function(err, foundUser){
-//         if (err) {
-//             console.log(err)
-//         } else {
-//             if(foundUser) {
-//                 foundUser.secret = submittedSecret;
-//                 foundUser.save(function(){
-//                     res.redirect('/secrets');
-//                 });
-//             }
-//         }
-//     });
-// });
+    User.findById(req.user.id, function(err, foundUser){
+        if (err) {
+            console.log(err)
+        } else {
+            if(foundUser) {
+                foundUser.secret = submittedSecret;
+                foundUser.save(function(){
+                    res.redirect("/secrets");
+                });
+            }
+        }
+    });
+});
 
 //-----------------------------------------------------
 
