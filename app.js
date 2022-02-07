@@ -35,7 +35,7 @@ const PORT = process.env.PORT || 3000
 const uri = process.env.MONGODB;
 
 
-//SSL -private key and certifiering & Asymmetric encryption----------
+//SSL -private key and certifiering & Asymmetric encryption---------- OPEN SSL ÄR TESTMILJÖ
 //Certificate , hemliga nycklar till SSL/TSL, som tillåter hemlig kommunikation mellan server och browser
 const options = {
     key: fs.readFileSync('nattas-key.pem'),
@@ -51,7 +51,7 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-//session cookies
+//session cookies /Auktorisering
 app.use(session({
     secret:"Our little secret.",
     resave: false,
@@ -68,6 +68,7 @@ app.use(passport.session());    //passport starting session cookies - passport s
 mongoose.connect('mongodb://localhost:27017/userDB', {useNewUrlParser: true}); //Skapar connection till MongoDB med namnet userDB -Se i Compass
 //mongoose.set("useCreateIndex", true); //this is no longer needed in Mongoose 6
 
+//Logging 
 const userSchema = new mongoose.Schema ({
     email: String,
     password: String,
@@ -250,6 +251,8 @@ app.post("/submit", function(req, res) {
                     res.redirect("/secrets");
                 });
             }
+            auditLog.logEvent(foundUser.username, 'maybe script name or function',
+            "submitted a secret", foundUser.secret, 'target id', 'additional info, JSON, etc.');
         }
     });
 });
@@ -369,7 +372,7 @@ app.post("/login", function(req, res){
 //-------------------------------------------------------
 
 
-//Accesslogging/Touring Test, recaptcha ser till att du inte är en robot
+//Accesslogging/Turing Test, recaptcha ser till att du inte är en robot
 //räknar även antal försök till login
 function recaptcha_callback() {
     var loginBtn = document.querySelector('#login-btn');
