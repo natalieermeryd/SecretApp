@@ -1,4 +1,4 @@
-require('dotenv').config(); //Håller hemligheter hemliga
+require('dotenv').config(); //Håller hemligheter hemliga .env
 const express = require('express');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
@@ -35,7 +35,7 @@ const PORT = process.env.PORT || 3000
 const uri = process.env.MONGODB;
 
 
-//SSL -private key and certifiering & Asymmetric encryption---------- OPEN SSL ÄR TESTMILJÖ
+//SSL -private key and certifiering & Asymmetric encryption---------- OPENSSL ÄR TESTMILJÖ
 //Certificate , hemliga nycklar till SSL/TSL, som tillåter hemlig kommunikation mellan server och browser
 const options = {
     key: fs.readFileSync('nattas-key.pem'),
@@ -178,7 +178,7 @@ app.get("/login", limiter, function(req, res){
 
 //**TERMS ROUTE ----------------------
 app.get("/terms", function(req, res){
-    res.render("/terms") //Skickar användaren till Terms
+    res.render("terms") //Skickar användaren till Terms
 });
 
 
