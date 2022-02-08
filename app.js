@@ -325,9 +325,9 @@ app.post("/login", function(req, res){
         password: req.body.password
     }); 
 
-    //auditlog funkade bara i denna function eftersom det är en post
-    auditLog.logEvent(user.username, 'ACCESS',
-    "LOGIN SUCCESSFUL", 'ATTEMPTED LOGIN', 'USER-LOGIN', 'A user Successfully logged in');
+        //auditlog funkade bara i denna function eftersom det är en post
+        auditLog.logEvent(user.username, 'ACCESS',
+        "LOGIN ATTEMPT", 'ATTEMPTED LOGIN', 'USER-LOGIN', 'A USER TRIED LOGIN');
     
     //This req comes from passport
     req.login(user, function(err){
