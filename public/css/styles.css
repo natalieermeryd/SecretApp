@@ -5,8 +5,9 @@ body {
 }
 
 .jumbotron {
-  background-color: #11435796;
-   height: 92vh;
+   height: auto;
+   width: 85%;
+   margin: auto;
  }
 
 .jumbotron.centered, .jumbotron.text-center {
@@ -17,7 +18,7 @@ body {
 }
 
 .centered {
-    padding-top: 200px;
+    padding-top: 5%;
     text-align: center;
 }
 
@@ -33,6 +34,7 @@ body {
 }
 
 h1 {
+  font-size: 3.2rem !important;
   background: -webkit-linear-gradient(#e66465, #9198e5);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
