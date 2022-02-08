@@ -151,7 +151,7 @@ const limiter = rateLimit({
 
 
 //**HOME ROUTE 
-app.get("/", limiter, function(req, res){
+app.get("/", function(req, res){
     res.render("home") //Skickar användare till home som standard, utgår ifrån Home
 });
 
@@ -251,8 +251,8 @@ app.post("/submit", function(req, res) {
                     res.redirect("/secrets");
                 });
             }
-            auditLog.logEvent(foundUser.username, 'maybe script name or function',
-            "submitted a secret", foundUser.secret, 'target id', 'additional info, JSON, etc.');
+            auditLog.logEvent(foundUser.username, 'A SECRET CHARED',
+            "SUBMITTED SECRET", foundUser.secret, 'SECRET', 'User successfully submitted a Secret<3');
         }
     });
 });
@@ -265,8 +265,8 @@ app.get("/logout", function(req, res, next) {
     // remove the req.user property and clear the login session
     req.logout();
   
-    // // don't destroy session data when logout is used 
-    // req.session = null;
+    // don't destroy session data when logout is used 
+    //req.session = null;
   
     // redirect to homepage
     res.redirect('/');
@@ -289,7 +289,7 @@ app.post("/register", function(req, res){
             res.redirect("/register");
         } else {
             passport.authenticate("local")(req, res, function(){
-                res.redirect("/secrets");
+                res.redirect("/login");
             });
         }
     });
@@ -326,8 +326,8 @@ app.post("/login", function(req, res){
     }); 
 
     //auditlog funkade bara i denna function eftersom det är en post
-    auditLog.logEvent(user.username, 'maybe script name or function',
-    "what just happened", 'the affected target name perhaps', 'target id', 'additional info, JSON, etc.');
+    auditLog.logEvent(user.username, 'ACCESS',
+    "LOGIN SUCCESSFUL", 'ATTEMPTED LOGIN', 'USER-LOGIN', 'A user Successfully logged in');
     
     //This req comes from passport
     req.login(user, function(err){
