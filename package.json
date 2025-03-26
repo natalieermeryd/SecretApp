@@ -18,7 +18,7 @@
   "homepage": "https://github.com/nataliaermeryd/SecretApp#readme",
   "dependencies": {
     "audit-log": "^0.9.1",
-    "bcrypt": "^5.0.1",
+    "bcrypt": "^5.1.1",
     "body-parser": "^1.19.1",
     "dotenv": "^16.0.0",
     "ejs": "^3.1.6",
